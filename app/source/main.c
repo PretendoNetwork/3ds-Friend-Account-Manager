@@ -68,9 +68,13 @@ C2D_Sprite debug_header;
 C2D_Sprite go_back;
 C2D_Sprite header;
 C2D_Sprite nintendo_deselected;
+C2D_Sprite nintendo_btn_selected;
 C2D_Sprite nintendo_selected;
+C2D_Sprite nintendo_loaded_deselected;
 C2D_Sprite pretendo_deselected;
+C2D_Sprite pretendo_btn_selected;
 C2D_Sprite pretendo_selected;
+C2D_Sprite pretendo_loaded_deselected;
 C2D_Sprite top;
 
 C2D_TextBuf g_staticBuf;
@@ -91,9 +95,13 @@ static void sceneInit(void)
 	C2D_SpriteFromSheet(&go_back, spriteSheet, sheet_go_back_idx);
 	C2D_SpriteFromSheet(&header, spriteSheet, sheet_header_idx);
 	C2D_SpriteFromSheet(&nintendo_deselected, spriteSheet, sheet_nintendo_deselected_idx);
+	C2D_SpriteFromSheet(&nintendo_btn_selected, spriteSheet, sheet_nintendo_btn_selected_idx);
 	C2D_SpriteFromSheet(&nintendo_selected, spriteSheet, sheet_nintendo_selected_idx);
+	C2D_SpriteFromSheet(&nintendo_loaded_deselected, spriteSheet, sheet_nintendo_loaded_deselected_idx);
 	C2D_SpriteFromSheet(&pretendo_deselected, spriteSheet, sheet_pretendo_deselected_idx);
+	C2D_SpriteFromSheet(&pretendo_btn_selected, spriteSheet, sheet_pretendo_btn_selected_idx);
 	C2D_SpriteFromSheet(&pretendo_selected, spriteSheet, sheet_pretendo_selected_idx);
+	C2D_SpriteFromSheet(&pretendo_loaded_deselected, spriteSheet, sheet_pretendo_loaded_deselected_idx);
 	C2D_SpriteSetCenter(&top, 0.5f, 0.5f);
 	C2D_SpriteSetPos(&top, 400/2, 240/2);
 	C2D_SpriteSetPos(&debug_button, 107, 192);
@@ -101,9 +109,13 @@ static void sceneInit(void)
 	C2D_SpriteSetPos(&go_back, 0, 214);
 	C2D_SpriteSetPos(&header, 95, 14);
 	C2D_SpriteSetPos(&pretendo_selected, 49, 59);
+	C2D_SpriteSetPos(&pretendo_btn_selected, 49, 59);
 	C2D_SpriteSetPos(&pretendo_deselected, 49, 59);
+	C2D_SpriteSetPos(&pretendo_loaded_deselected, 49, 59);
 	C2D_SpriteSetPos(&nintendo_selected, 165, 59);
+	C2D_SpriteSetPos(&nintendo_btn_selected, 165, 59);
 	C2D_SpriteSetPos(&nintendo_deselected, 165, 59);
+	C2D_SpriteSetPos(&nintendo_loaded_deselected, 165, 59);
 }
 
 static void sceneRenderTop()
@@ -172,6 +184,8 @@ int main()
 
   ACTA_GetAccountCount(&act_account_count);
 
+  u32 btn_selected = 0;
+
 	// Main loop
 	while (aptMainLoop())
 	{
@@ -181,19 +195,47 @@ int main()
     u32 kDown = hidKeysDown();
     if (kDown & KEY_START) break;
 
-    if(kDown & KEY_TOUCH){
-      if((touch.px >= 165 && touch.px <= 165 + 104) && (touch.py >= 59 && touch.py <= 59 + 113)){
-        switchAccounts(1);
-        needsReboot = true;
-        break;
-      }else if((touch.px >= 49 && touch.px <= 49 + 104) && (touch.py >= 59 && touch.py <= 59 + 113)){
-        if(switchAccounts(2)){
-          createAccount(2);
-        }
-        needsReboot = true;
-        break;
-      }
-    }
+	if (kDown & KEY_TOUCH) {
+		btn_selected = 0;
+
+		if ((touch.px >= 165 && touch.px <= 165 + 104) && (touch.py >= 59 && touch.py <= 59 + 113)) {
+			switchAccounts(1);
+			needsReboot = true;
+			break;
+		}
+		else if ((touch.px >= 49 && touch.px <= 49 + 104) && (touch.py >= 59 && touch.py <= 59 + 113)) {
+			if (switchAccounts(2)) {
+				createAccount(2);
+			}
+			needsReboot = true;
+			break;
+		}
+	}
+	else if (kDown & KEY_LEFT)
+	{
+		if (btn_selected == 0) {
+			btn_selected = 1;
+		}
+	
+		btn_selected--;
+
+		if (btn_selected < 1) {
+			btn_selected = 2;
+		}
+	}
+		
+	else if (kDown & KEY_RIGHT)
+	{
+		if (btn_selected == 0) {
+			btn_selected = 2;
+		}
+
+		btn_selected++;
+
+		if (btn_selected > 2) {
+			btn_selected = 1;
+		}
+	}
 
 		// Render the scene
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
@@ -202,7 +244,55 @@ int main()
 		sceneRenderTop();
 		C2D_TargetClear(bottom_screen, C2D_Color32(21, 22, 28, 0xFF));
 		C2D_SceneBegin(bottom_screen);
-		sceneRenderBottom();
+		if (btn_selected == 0) {
+			sceneRenderBottom();
+		}
+		else if (btn_selected == 1)
+		{
+			if (current_account == 1)
+			{
+				C2D_DrawSprite(&nintendo_deselected);
+				C2D_DrawSprite(&pretendo_selected);
+			}
+			else
+			{
+				C2D_DrawSprite(&nintendo_loaded_deselected);
+				C2D_DrawSprite(&pretendo_btn_selected);
+			}
+
+			C2D_DrawSprite(&header);
+
+			if (kDown & KEY_A)
+			{
+				if (switchAccounts(2)) {
+					createAccount(2);
+				}
+				needsReboot = true;
+				break;
+			}
+		}
+		else if (btn_selected == 2)
+		{
+			if (current_account == 0)
+			{
+				C2D_DrawSprite(&nintendo_selected);
+				C2D_DrawSprite(&pretendo_deselected);
+			}
+			else
+			{
+				C2D_DrawSprite(&nintendo_btn_selected);
+				C2D_DrawSprite(&pretendo_loaded_deselected);
+			}
+
+			C2D_DrawSprite(&header);
+
+			if (kDown & KEY_A)
+			{
+				switchAccounts(1);
+				needsReboot = true;
+				break;
+			}
+		}
 		C3D_FrameEnd(0);
 	}
 
