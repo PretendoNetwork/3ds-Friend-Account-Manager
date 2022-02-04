@@ -102,7 +102,7 @@ static void sceneInit(void)
 	C2D_SpriteFromSheet(&pretendo_btn_selected, spriteSheet, sheet_pretendo_btn_selected_idx);
 	C2D_SpriteFromSheet(&pretendo_selected, spriteSheet, sheet_pretendo_selected_idx);
 	C2D_SpriteFromSheet(&pretendo_loaded_deselected, spriteSheet, sheet_pretendo_loaded_deselected_idx);
-	C2D_SpriteSetCenter(&top, 0.5f, 0.5f);
+	C2D_SpriteSetCenter(&top, 0.49f, 0.49f);
 	C2D_SpriteSetPos(&top, 400/2, 240/2);
 	C2D_SpriteSetPos(&debug_button, 107, 192);
 	C2D_SpriteSetPos(&debug_header, 27, 22);
