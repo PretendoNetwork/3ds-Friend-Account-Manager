@@ -4,8 +4,9 @@
 ## Usage
 
 1. Grab the latest app and IPS patches from the [Releases](https://github.com/PretendoNetwork/nimbus/releases) page
-2. Extract to the root of your 3ds SD card
-3. Run the Nimbus homebrew and select either to use a Pretendo or Nintendo account
+2. Extract to the root of your 3DS SD card
+3. Ensure Game Patching is enabled in Luma3DS settings (hold SELECT at boot to enter Luma settings)
+4. Run the Nimbus homebrew and select the network you wish to use (Nintendo Network, or Pretendo Network)
 
 ## Building
 
