@@ -33,12 +33,14 @@
 
 # 3ds
 *.elf
+*.cia
 *.3dsx
 *.smdh
 build
 out
 luma
 target
+*.t3x
 *.bin
 *.ips
 

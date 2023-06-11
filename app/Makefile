@@ -31,37 +31,48 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-APP_TITLE := Nimbus
-APP_DESCRIPTION := Pretendo account manager
-APP_AUTHOR		:=	Zaksabeast, shutterbug2000
+APP_TITLE := Pretendo Account Manager
+APP_DESCRIPTION := Nimbus
+APP_AUTHOR		:=	Zaksabeast, shutterbug2000, pinklimes (Art)
 TARGET		:=	nimbus
 BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data
 INCLUDES	:=	include
-GRAPHICS	:=	gfx
-GFXBUILD	:=	$(BUILD)
+ROMFS		:=	romfs
+GRAPHICS	:=	$(ROMFS)/gfx
+GFXBUILD 	:=  $(BUILD)
 
-#ROMFS		:=	romfs
+RSF_FILE := meta/nimbus-cia.rsf
+
+ICON      := meta/icon.png
+BNR_IMAGE := meta/banner.png
+BNR_AUDIO := meta/audio.wav
+
+VERSION_MAJOR := 0
+VERSION_MINOR := 0
+VERSION_MICRO := 1
+
 #GFXBUILD	:=	$(ROMFS)/gfx
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-ARCH	:=	-march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft
+OPTIMIZE    :=  -O2
+ARCH	    :=	-march=armv6k -mtune=mpcore -mfloat-abi=hard -mtp=soft
 
-CFLAGS	:=	-g -Wall -O2 -mword-relocations \
-			-ffunction-sections \
-			$(ARCH)
+CFLAGS	    :=	-g -Wall $(OPTIMIZE) -mword-relocations \
+			    -ffunction-sections \
+			    $(ARCH)
 
-CFLAGS	+=	$(INCLUDE) -D__3DS__
+CFLAGS	    +=	$(INCLUDE) -D__3DS__
 
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
+CXXFLAGS	:=  $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
 
-ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
+ASFLAGS	    :=	-g $(ARCH)
+LDFLAGS	     =	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) $(OPTIMIZE)
 
-LIBS	:= -lcitro2d -lcitro3d -lctru -lm
+LIBS	    := -lcitro2d -lcitro3d -lctru -lm
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -178,32 +189,58 @@ endif
 
 ifneq ($(DEPSDIR),$(BUILD))
 $(DEPSDIR):
-	@mkdir -p $@
+	mkdir -p $@
 endif
+
+#---------------------------------------------------------------------------------
+$(GFXBUILD)/%.t3x $(BUILD)/%.h: %.t3s
+#---------------------------------------------------------------------------------
+	@echo $(notdir $<)
+	tex3ds -i $< -H $(BUILD)/$*.h -d $(DEPSDIR)/$*.d -o $(GFXBUILD)/$*.t3x
+
+3dsx: $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile 3dsx
+
+cia: $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile cia
+
+3dslink: 3dsx
+	@3dslink $(OUTPUT).3dsx
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).3dsx $(OUTPUT).smdh $(TARGET).elf $(GFXBUILD)
-
-#---------------------------------------------------------------------------------
-$(GFXBUILD)/%.t3x	$(BUILD)/%.h	:	%.t3s
-#---------------------------------------------------------------------------------
-	@echo $(notdir $<)
-	@tex3ds -i $< -H $(BUILD)/$*.h -d $(DEPSDIR)/$*.d -o $(GFXBUILD)/$*.t3x
+	@$(RM) -r $(BUILD) \
+		$(TARGET).3dsx \
+		$(OUTPUT).smdh \
+		$(TARGET).elf \
+		$(TARGET).cia \
+		$(ROMFS_T3XFILES) \
+		output/ 
 
 #---------------------------------------------------------------------------------
 else
-
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-$(OUTPUT).3dsx	:	$(OUTPUT).elf $(_3DSXDEPS)
+all: $(OUTPUT).cia $(OUTPUT).3dsx
 
-$(OFILES_SOURCES) : $(HFILES)
+3dsx: $(OUTPUT).3dsx
 
-$(OUTPUT).elf	:	$(OFILES)
+cia: $(OUTPUT).cia
 
+ifeq ($(strip $(NO_SMDH)),)
+.PHONY: all
+all:            $(OUTPUT).3dsx $(OUTPUT).smdh
+$(OUTPUT).smdh: $(TOPDIR)/Makefile $(TOPDIR)/Makefile
+$(OUTPUT).3dsx: $(OUTPUT).smdh
+endif
+
+$(OUTPUT).3dsx: $(OUTPUT).elf $(_3DSXDEPS)
+
+$(OFILES_SOURCES): $(HFILES)
+
+$(OUTPUT).elf:  $(OFILES)
 #---------------------------------------------------------------------------------
 # you need a rule like this for each extension you use as binary data
 #---------------------------------------------------------------------------------
@@ -251,6 +288,19 @@ endef
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	@tex3ds -i $< -H $*.h -d $*.d -o $*.t3x
+	
+$(OUTPUT).cia:  $(OUTPUT).elf $(OUTPUT).smdh $(TARGET).bnr $(TOPDIR)/$(RSF_FILE)
+	@makerom -f cia -target t -exefslogo -o $@ \
+	  -elf $(OUTPUT).elf -rsf $(TOPDIR)/$(RSF_FILE) \
+	  -ver "$$(($(VERSION_MAJOR)*1024+$(VERSION_MINOR)*16+$(VERSION_MICRO)))" \
+	  -banner $(TARGET).bnr \
+	  -icon $(OUTPUT).smdh
+	@echo "built ... $(notdir $@)"
+
+$(TARGET).bnr:  $(TOPDIR)/$(BNR_IMAGE) $(TOPDIR)/$(BNR_AUDIO)
+	@[ -d $(dir $@) ] || mkdir -p $(dir $@)
+	@bannertool makebanner -o $@ -i $(TOPDIR)/$(BNR_IMAGE) -a $(TOPDIR)/$(BNR_AUDIO)
+	@echo "built ... $@"
 
 -include $(DEPSDIR)/*.d
 
