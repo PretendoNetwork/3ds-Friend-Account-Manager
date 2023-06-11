@@ -3,14 +3,14 @@
 
 ## Usage
 
-1. Grab the latest app and IPS patches from the [Releases](https://github.com/PretendoNetwork/nimbus/releases) page
-2. Extract to the root of your 3ds SD card
+1. Grab the latest app and IPS patches from the [Releases](https://github.com/TraceEntertains/nimbus/releases) page
+2. Extract to the root of your 3DS SD card
 3. Run the Nimbus homebrew and select either to use a Pretendo or Nintendo account
 
 ## Building
 
 1. Install devkitARM, libctru, [armips](https://github.com/Kingcom/armips), and [flips](https://github.com/Alcaro/Flips)
-2. Copy decompressed `code.bin` files from the friends and act sysmodules in their respective `patches` directories
+2. Copy [decompressed `code.bin`](https://github.com/TraceEntertains/nimbus/blob/main/DECOMPRESSING.md) files from the friends and act sysmodules in their respective `patches` directories
 3. Run `make`
 
 ## Credits
