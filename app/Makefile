@@ -49,9 +49,9 @@ ICON      := meta/icon.png
 BNR_IMAGE := meta/banner.png
 BNR_AUDIO := meta/audio.wav
 
-VERSION_MAJOR := 0
+VERSION_MAJOR := 1
 VERSION_MINOR := 0
-VERSION_MICRO := 1
+VERSION_MICRO := 0
 
 #GFXBUILD	:=	$(ROMFS)/gfx
 
