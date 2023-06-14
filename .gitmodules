@@ -1,0 +1,3 @@
+[submodule "patches/3DS-SSL-Patch"]
+	path = patches/3DS-SSL-Patch
+	url = https://github.com/SciresM/3DS-SSL-Patch
