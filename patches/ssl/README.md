@@ -1,5 +1,5 @@
 # 3DS SSL Patch
-This is a patch for the 3DS SSL module to disable Root CA Verification originally from [here](https://github.com/SciresM/3DS-SSL-Patch), but slightly (no code differences) modified to fit the structure of nimbus better.
+This is a patch for the 3DS SSL module to disable Root CA Verification originally from [here](https://github.com/SciresM/3DS-SSL-Patch), but slightly modified (no major code differences except build file name) to fit the structure of nimbus better.
 
 To use:
 
