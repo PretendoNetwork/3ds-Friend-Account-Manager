@@ -3,7 +3,7 @@ This is a patch for the 3DS SSL module to disable Root CA Verification originall
 
 To use:
 
-1. Get and decrypt the SSL module (0004013000002F02), and extract its [decompressed](https://github.com/TraceEntertains/nimbus/blob/main/DECOMPRESSING.md) code binary to the patch directory as "code.bin".
+1. Get and decrypt the SSL module (0004013000002F02), and extract its [decompressed](https://github.com/PretendoNetwork/nimbus/blob/main/DECOMPRESSING.md) code binary to the patch directory as "code.bin".
 2. Run `make`.
 3. Copy `out/code.ips` to `sdcard:/luma/titles/0004013000002F02/code.ips`.
 4. Enable Game Patching and/or Allow Loading External FIRMs or System Modules under Luma3DS's configuration.
