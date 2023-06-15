@@ -11,7 +11,7 @@
 ## Building
 
 1. Install devkitARM, libctru, [armips](https://github.com/Kingcom/armips), and [flips](https://github.com/Alcaro/Flips)
-2. Copy [decompressed `code.bin`](https://github.com/TraceEntertains/nimbus/blob/main/DECOMPRESSING.md) files from the friends and act sysmodules in their respective `patches` directories (any Miiverse code.bin works)
+2. Copy [decompressed `code.bin`](https://github.com/PretendoNetwork/nimbus/blob/main/DECOMPRESSING.md) files from the friends and act sysmodules in their respective `patches` directories (any Miiverse code.bin works)
 3. Run `make`
 
 ## Credits
