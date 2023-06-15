@@ -17,6 +17,9 @@
 
 Thanks to:
 
+- [pinklimes](https://github.com/gitlimes) for the banner
+- [TraceEntertains](https://github.com/TraceEntertains) for making a CIA version of Nimbus and a few other things
+- [SciresM](https://github.com/SciresM) for making the 3DS SSL patches
 - [zaksabeast](https://github.com/zaksabeast) for the original 3ds-Friend-Account-Manager and all the research into the friends and act system titles
 - [shutterbug2000](https://github.com/shutterbug2000) for the GUI
 - [libctru](https://github.com/devkitPro/libctru) for the `frda.c` base, homebrew template, and all of the library functions
