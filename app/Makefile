@@ -177,7 +177,7 @@ endif
 
 #---------------------------------------------------------------------------------
 all: $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	@'$(MAKE)' --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 $(BUILD):
 	@mkdir -p $@
