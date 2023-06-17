@@ -189,14 +189,14 @@ endif
 
 ifneq ($(DEPSDIR),$(BUILD))
 $(DEPSDIR):
-	mkdir -p $@
+	@mkdir -p $@
 endif
 
 #---------------------------------------------------------------------------------
 $(GFXBUILD)/%.t3x $(BUILD)/%.h: %.t3s
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
-	tex3ds -i $< -H $(BUILD)/$*.h -d $(DEPSDIR)/$*.d -o $(GFXBUILD)/$*.t3x
+	@tex3ds -i $< -H $(BUILD)/$*.h -d $(DEPSDIR)/$*.d -o $(GFXBUILD)/$*.t3x
 
 3dsx: $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile 3dsx
