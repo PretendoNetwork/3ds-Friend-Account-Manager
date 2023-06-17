@@ -10,7 +10,7 @@
 
 ## Building
 
-1. Install devkitARM, libctru, [armips](https://github.com/Kingcom/armips), and [flips](https://github.com/Alcaro/Flips)
+1. Install devkitARM, libctru, [armips](https://github.com/Kingcom/armips), [makerom](https://github.com/3DSGuy/Project_CTR), [bannertool](https://github.com/Steveice10/bannertool/) and [flips](https://github.com/Alcaro/Flips)
 2. Copy [decompressed `code.bin`](https://github.com/PretendoNetwork/nimbus/blob/main/DECOMPRESSING.md) files from the friends, ssl, miiverse, and act sysmodules in their respective `patches` directories (any Miiverse code.bin works)
 3. Run `make`
 
