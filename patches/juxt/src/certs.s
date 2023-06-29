@@ -4,7 +4,7 @@
 	
 // set certificate location
 .org browser_cave_pem_string
-	.ascii "3ds/juxt.pem", 0
+	.ascii "3ds/juxt-prod.pem", 0
 	
 // include the fiddler rootca
 .org der_cert_address
