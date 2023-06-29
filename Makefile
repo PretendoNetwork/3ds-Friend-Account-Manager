@@ -40,7 +40,7 @@ all:
 	@cp -r patches/juxt/out/* $(3DSX_OUT_FOLDER)/$(JUXT_OUT_JPN)
 	@cp -r patches/juxt/out/* $(3DSX_OUT_FOLDER)/$(JUXT_OUT_USA)
 	@cp -r patches/juxt/out/* $(3DSX_OUT_FOLDER)/$(JUXT_OUT_EUR)
-	@cp -r patches/juxt/juxt.pem $(3DSX_OUT_FOLDER)/$(3DS_OUT)
+	@cp -r patches/juxt/juxt-prod.pem $(3DSX_OUT_FOLDER)/$(3DS_OUT)
 	
 	@cp -r $(3DSX_OUT_FOLDER)/* $(CIA_OUT_FOLDER)
 
