@@ -1,6 +1,6 @@
-.PHONY: all clean act friends juxt ssl
+.PHONY: all clean act friends miiverse ssl
 
-all: act friends juxt ssl
+all: act friends miiverse ssl
 
 act:
 	@make -C act
@@ -8,8 +8,8 @@ act:
 friends:
 	@make -C friends
 	
-juxt:
-	@make -C juxt
+miiverse:
+	@make -C miiverse
 	
 ssl:
 	@make -C ssl
@@ -17,5 +17,5 @@ ssl:
 clean:
 	@make -C act clean
 	@make -C friends clean
-	@make -C juxt clean
+	@make -C miiverse clean
 	@make -C ssl clean
