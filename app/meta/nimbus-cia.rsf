@@ -146,33 +146,10 @@ AccessControlInfo:
   # Maximum 34 services (32 if firmware is prior to 9.6.0)
   ServiceAccessControl:
    - APT:U
-   - ac:u
-   - am:net
-   - boss:U
-   - cam:u
-   - cecd:u
-   - cfg:nor
-   - cfg:u
-   - csnd:SND
-   - dsp::DSP
-   - frd:u
-   - fs:USER
    - gsp::Gpu
    - gsp::Lcd
    - hid:USER
-   - http:C
-   - ir:rst
-   - ir:u
-   - ir:USER
-   - mic:u
-   - ndm:u
-   - news:u
-   - nwm::UDS
-   - ptm:u
-   - pxi:dev
-   - soc:U
-   - ssl:C
-   - y2r:u
+
 
 
 SystemControlInfo:
