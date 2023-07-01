@@ -51,7 +51,7 @@ BNR_AUDIO := meta/audio.wav
 
 VERSION_MAJOR := 1
 VERSION_MINOR := 0
-VERSION_MICRO := 0
+VERSION_MICRO := 2
 
 #GFXBUILD	:=	$(ROMFS)/gfx
 
@@ -214,9 +214,7 @@ clean:
 		$(TARGET).3dsx \
 		$(OUTPUT).smdh \
 		$(TARGET).elf \
-		$(TARGET).cia \
-		$(ROMFS_T3XFILES) \
-		output/ 
+		$(TARGET).cia
 
 #---------------------------------------------------------------------------------
 else
