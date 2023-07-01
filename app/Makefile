@@ -199,10 +199,10 @@ $(GFXBUILD)/%.t3x $(BUILD)/%.h: %.t3s
 	@tex3ds -i $< -H $(BUILD)/$*.h -d $(DEPSDIR)/$*.d -o $(GFXBUILD)/$*.t3x
 
 3dsx: $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile 3dsx
+	@'$(MAKE)' --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile 3dsx
 
 cia: $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile cia
+	@'$(MAKE)' --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile cia
 
 3dslink: 3dsx
 	@3dslink $(OUTPUT).3dsx
@@ -223,7 +223,7 @@ else
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-all: $(OUTPUT).3dsx $(OUTPUT).cia
+all: 3dsx cia
 
 3dsx: $(OUTPUT).3dsx
 

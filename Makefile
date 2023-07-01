@@ -31,6 +31,7 @@ all:
 	@mkdir -p $(3DSX_OUT_FOLDER)/$(SSL_OUT) $(3DSX_OUT_FOLDER)/$(MIIVERSE_OUT_JPN)
 	@mkdir -p $(3DSX_OUT_FOLDER)/$(MIIVERSE_OUT_USA) $(3DSX_OUT_FOLDER)/$(MIIVERSE_OUT_EUR)
 	@mkdir -p $(3DSX_OUT_FOLDER)/$(3DS_OUT) $(CIA_OUT_FOLDER)
+	@mkdir -p $(CIA_OUT_FOLDER)/$(CIA_OUT)
 	
 	@$(MAKE) -C patches
 	
@@ -40,17 +41,16 @@ all:
 	@cp -r patches/miiverse/out/* $(3DSX_OUT_FOLDER)/$(MIIVERSE_OUT_JPN)
 	@cp -r patches/miiverse/out/* $(3DSX_OUT_FOLDER)/$(MIIVERSE_OUT_USA)
 	@cp -r patches/miiverse/out/* $(3DSX_OUT_FOLDER)/$(MIIVERSE_OUT_EUR)
-	@cp -r patches/miiverse/juxt-prod.pem $(3DSX_OUT_FOLDER)/$(3DS_OUT)
+	@cp -r patches/miiverse/*.pem $(3DSX_OUT_FOLDER)/$(3DS_OUT)
 	
 	@cp -r $(3DSX_OUT_FOLDER)/* $(CIA_OUT_FOLDER)
 
-
-	@$(MAKE) -C app
-	
-	
+	@$(MAKE) -C app 3dsx
+	@echo copied 3dsx to 3dsx out folder...
 	@cp app/*.3dsx $(3DSX_OUT_FOLDER)/$(3DS_OUT)
 	
-	@mkdir -p $(CIA_OUT_FOLDER)/$(CIA_OUT)
+	@$(MAKE) -C app cia
+	@echo copied cia to cia out folder...
 	@cp app/*.cia $(CIA_OUT_FOLDER)/$(CIA_OUT)
 
 clean:
