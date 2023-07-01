@@ -1,0 +1,3 @@
+[submodule "patches/ssl"]
+	path = patches/ssl
+	url = https://github.com/TraceEntertains/3DS-SSL-Patch
