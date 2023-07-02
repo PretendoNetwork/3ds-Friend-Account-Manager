@@ -1,6 +1,5 @@
-# Juxtaposition REd patches
-Basically just reverse engineered juxtaposition 3ds patches made
-using an older source version and the real patch.
+# Miiverse patches for Juxtaposition
+Basically just Juxt patches that have a bit nicer looking code and building closer to how the rest of the Nimbus patches are.
 
 To compile, you need armips, make, and flips.
 
