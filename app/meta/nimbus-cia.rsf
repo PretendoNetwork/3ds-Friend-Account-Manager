@@ -1,0 +1,165 @@
+BasicInfo:
+  Title                   : "nimbus"
+  ProductCode             : "nimbus"
+  Logo                    : Homebrew # Nintendo / Licensed / Distributed / iQue / iQueForSystem
+
+RomFs:
+  RootPath                : ../romfs
+
+TitleInfo:
+  Category                : Application
+  UniqueId                : 0xD40D2
+
+Option:
+  UseOnSD                 : true # true if App is to be installed to SD
+  FreeProductCode         : true # Removes limitations on ProductCode
+  MediaFootPadding        : false # If true CCI files are created with padding
+  EnableCrypt             : false # Enables encryption for NCCH and CIA
+  EnableCompress          : true # Compresses where applicable (currently only exefs:/.code)
+  
+AccessControlInfo:
+  CoreVersion                   : 2
+
+  # Exheader Format Version
+  DescVersion                   : 2
+  
+  # Minimum Required Kernel Version (below is for 4.5.0)
+  ReleaseKernelMajor            : "02"
+  ReleaseKernelMinor            : "33" 
+
+  # ExtData
+  UseExtSaveData                : false # enables ExtData       
+  #ExtSaveDataId                : 0x300 # only set this when the ID is different to the UniqueId
+
+  # FS:USER Archive Access Permissions
+  # Uncomment as required
+  FileSystemAccess:
+   #- CategorySystemApplication
+   #- CategoryHardwareCheck
+   - CategoryFileSystemTool
+   #- Debug
+   #- TwlCardBackup
+   #- TwlNandData
+   #- Boss
+   - DirectSdmc
+   #- Core
+   #- CtrNandRo
+   #- CtrNandRw
+   #- CtrNandRoWrite
+   #- CategorySystemSettings
+   #- CardBoard
+   #- ExportImportIvs
+   #- DirectSdmcWrite
+   #- SwitchCleanup
+   #- SaveDataMove
+   #- Shop
+   #- Shell
+   #- CategoryHomeMenu
+
+  # Process Settings
+  MemoryType                    : Application # Application/System/Base
+  SystemMode                    : 64MB # 64MB(Default)/96MB/80MB/72MB/32MB
+  IdealProcessor                : 0
+  AffinityMask                  : 1
+  Priority                      : 16
+  MaxCpu                        : 0x9E # Default
+  HandleTableSize               : 0x200
+  DisableDebug                  : false
+  EnableForceDebug              : false
+  CanWriteSharedPage            : true
+  CanUsePrivilegedPriority      : false
+  CanUseNonAlphabetAndNumber    : true
+  PermitMainFunctionArgument    : true
+  CanShareDeviceMemory          : true
+  RunnableOnSleep               : false
+  SpecialMemoryArrange          : true
+
+  # New3DS Exclusive Process Settings
+  SystemModeExt                 : Legacy # Legacy(Default)/124MB/178MB  Legacy:Use Old3DS SystemMode
+  CpuSpeed                      : 804MHz # 256MHz(Default)/804MHz
+  EnableL2Cache                 : true # false(default)/true
+  CanAccessCore2                : true 
+
+  # Virtual Address Mappings
+  IORegisterMapping:
+   - 1ff00000-1ff7ffff   # DSP memory
+  MemoryMapping: 
+   - 1f000000-1f5fffff:r # VRAM
+
+  # Accessible SVCs, <Name>:<ID>
+  SystemCallAccess: 
+    ArbitrateAddress: 34
+    Backdoor: 123
+    Break: 60
+    CancelTimer: 28
+    ClearEvent: 25
+    ClearTimer: 29
+    CloseHandle: 35
+    ConnectToPort: 45
+    ControlMemory: 1
+    ControlProcessMemory: 112
+    CreateAddressArbiter: 33
+    CreateEvent: 23
+    CreateMemoryBlock: 30
+    CreateMutex: 19
+    CreateSemaphore: 21
+    CreateThread: 8
+    CreateTimer: 26
+    DuplicateHandle: 39
+    ExitProcess: 3
+    ExitThread: 9
+    GetCurrentProcessorNumber: 17
+    GetHandleInfo: 41
+    GetProcessId: 53
+    GetProcessIdOfThread: 54
+    GetProcessIdealProcessor: 6
+    GetProcessInfo: 43
+    GetResourceLimit: 56
+    GetResourceLimitCurrentValues: 58
+    GetResourceLimitLimitValues: 57
+    GetSystemInfo: 42
+    GetSystemTick: 40
+    GetThreadContext: 59
+    GetThreadId: 55
+    GetThreadIdealProcessor: 15
+    GetThreadInfo: 44
+    GetThreadPriority: 11
+    MapMemoryBlock: 31
+    OutputDebugString: 61
+    QueryMemory: 2
+    ReleaseMutex: 20
+    ReleaseSemaphore: 22
+    SendSyncRequest1: 46
+    SendSyncRequest2: 47
+    SendSyncRequest3: 48
+    SendSyncRequest4: 49
+    SendSyncRequest: 50
+    SetThreadPriority: 12
+    SetTimer: 27
+    SignalEvent: 24
+    SleepThread: 10
+    UnmapMemoryBlock: 32
+    WaitSynchronization1: 36
+    WaitSynchronizationN: 37
+
+  # Service List
+  # Maximum 34 services (32 if firmware is prior to 9.6.0)
+  ServiceAccessControl:
+   - APT:U
+   - gsp::Gpu
+   - gsp::Lcd
+   - hid:USER
+
+
+
+SystemControlInfo:
+  SaveDataSize: 0KB # Change if the app uses savedata
+  RemasterVersion: $(VERSION_MAJOR)
+  StackSize: 0x40000
+
+  # Modules that run services listed above should be included below
+  # Maximum 48 dependencies
+  # <module name>:<module titleid>
+  Dependency: 
+    gsp: 0x0004013000001c02
+    hid: 0x0004013000001d02

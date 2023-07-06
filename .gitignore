@@ -33,14 +33,19 @@
 
 # 3ds
 *.elf
+*.cia
 *.3dsx
 *.smdh
+*.t3x
+*.bin
+*.ips
 build
 out
 luma
 target
-*.bin
-*.ips
+
+# region file from script to say what region of code.bin you have
+*.region
 
 # VSCode
 .vscode
