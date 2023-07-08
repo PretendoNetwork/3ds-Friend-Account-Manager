@@ -5,14 +5,16 @@
 
 1. Grab the latest app and IPS patches from the [Releases](https://github.com/PretendoNetwork/nimbus/releases) page
 2. Extract to the root of your 3DS SD card
-3. Install the Nimbus homebrew using FBI if using the CIA build
+3. Install the Nimbus homebrew using FBI (or FBI Reloaded) if using the CIA build
 4. Run the Nimbus homebrew and select either to use a Pretendo or Nintendo account
+     - If it doesn't work, reboot your 3DS while holding SELECT and ensure that "Enable loading external FIRMs and modules" as well as "Enable game patching" are both turned on
 
 ## Building
 
-1. Install devkitARM, libctru, [armips](https://github.com/Kingcom/armips), [makerom](https://github.com/3DSGuy/Project_CTR), [bannertool](https://github.com/Steveice10/bannertool) and [flips](https://github.com/Alcaro/Flips)
-2. Copy [decompressed `code.bin`](https://github.com/PretendoNetwork/nimbus/blob/main/DECOMPRESSING.md) files from the friends, ssl, miiverse, and act sysmodules in their respective `patches` directories (any Miiverse code.bin works for the miiverse module)
-3. Run `make`
+1. Clone the repository recursively using `git clone https://github.com/PretendoNetwork/nimbus --recursive`
+2. Install devkitARM, libctru, [armips](https://github.com/Kingcom/armips), [makerom](https://github.com/3DSGuy/Project_CTR), [bannertool](https://github.com/Steveice10/bannertool) and [flips](https://github.com/Alcaro/Flips)
+3. Copy [decompressed `code.bin`](https://github.com/PretendoNetwork/nimbus/blob/main/DECOMPRESSING.md) files from the friends, ssl, miiverse, and act sysmodules in their respective `patches` directories (any Miiverse code.bin works for the miiverse module)
+4. Run `make`
 
 ## Credits
 
