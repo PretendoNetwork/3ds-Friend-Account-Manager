@@ -7,7 +7,7 @@
 2. Extract to the root of your 3DS SD card
 3. Install the Nimbus homebrew using FBI (or FBI Reloaded) if using the CIA build
 4. Run the Nimbus homebrew and select either to use a Pretendo or Nintendo account
-     - If it doesn't work, reboot your 3DS while holding SELECT and ensure that "Enable loading external FIRMs and modules" is turned on, as well as ensuring that your Luma3DS version is of PLACEHOLDER or higher.
+     - If it doesn't work, reboot your 3DS while holding SELECT and ensure that "Enable loading external FIRMs and modules" is turned on, as well as ensuring that your Luma3DS version is 13.0 or higher.
 
 ## Building
 
