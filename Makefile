@@ -31,7 +31,7 @@ all:
 	@rm -rf $(OUT_FOLDER)
 
 # make patches + app folders
-	@mkdir -p $(PATCHES_OUT_FOLDER)/$(LUMA_OUT) $(PATCHES_OUT_FOLDER)/$(3DS_OUT)
+	@mkdir -p $(PATCHES_OUT_FOLDER)/$(LUMA_OUT) $(PATCHES_OUT_FOLDER)/$(LUMA_SYSMODULE_OUT) $(PATCHES_OUT_FOLDER)/$(3DS_OUT)
 	@mkdir -p $(3DSX_OUT_FOLDER) $(CIA_OUT_FOLDER)/$(CIA_OUT) $(COMBINED_OUT_FOLDER)/$(CIA_OUT)
 	
 # build patches
