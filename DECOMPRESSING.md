@@ -21,7 +21,7 @@ This is a tutorial on how to get, extract, and decompress code.bin files for pat
     - USA: 000400300000BD02
     - EUR: 000400300000BE02
 
-Any miiverse module is fine and should generate a patch that works and + is identical for all regions.
+Any region miiverse module is fine and should generate a patch that is identical for all regions.
 
 ## Method 2 (Requires running a GM9 script)
 1. Have a hacked 3DS
