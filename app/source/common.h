@@ -4,6 +4,6 @@
 
 typedef enum
 {
-  Nintendo = 1,
-  Pretendo = 2, 
+	Nintendo = 1,
+	Pretendo = 2,
 } Account;

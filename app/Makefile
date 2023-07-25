@@ -286,7 +286,7 @@ endef
 #---------------------------------------------------------------------------------
 	@echo $(notdir $<)
 	@tex3ds -i $< -H $*.h -d $*.d -o $*.t3x
-	
+
 $(OUTPUT).cia:  $(OUTPUT).elf $(OUTPUT).smdh $(TARGET).bnr $(TOPDIR)/$(RSF_FILE)
 	@makerom -f cia -target t -exefslogo -o $@ \
 	  -elf $(OUTPUT).elf -rsf $(TOPDIR)/$(RSF_FILE) \
