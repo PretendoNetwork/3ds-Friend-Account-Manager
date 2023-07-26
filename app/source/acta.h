@@ -4,6 +4,7 @@
 extern "C" {
 #endif
 
+#include "./common.h"
 #include <3ds/types.h>
 
 #define ACT_CURRENT_ACCOUNT 0xfe
