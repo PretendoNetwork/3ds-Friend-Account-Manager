@@ -40,11 +40,7 @@ C2D_Sprite top;
 C2D_TextBuf g_staticBuf;
 C2D_TextBuf g_dynamicBuf;
 
-u32 current_persistent_id = 0;
 u32 screen = 0;
-
-u32 act_account_count = 0;
-u32 current_account = 0;
 
 Account buttonSelected;
 Account currentEnv;
@@ -156,8 +152,6 @@ int main()
 	// Initialize the scene
 	sceneInit();
 
-	ACTA_GetAccountCount(&act_account_count);
-
 	FRDA_GetLocalAccountId(&currentEnv);
 	buttonSelected = currentEnv;
 
@@ -178,9 +172,7 @@ int main()
 			}
 			else if ((touch.px >= 49 && touch.px <= 49 + 104) && (touch.py >= 59 && touch.py <= 59 + 113)) {
 				buttonSelected = Pretendo;
-				if (switchAccounts(buttonSelected)) {
-					createAccount(buttonSelected);
-				}
+				if (switchAccounts(buttonSelected)) createAccount(buttonSelected);
 				needsReboot = true;
 				break;
 			}
