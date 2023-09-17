@@ -57,6 +57,18 @@ Result FRDA_CreateLocalAccount(u8 localAccountId, NascEnvironment nascEnvironmen
 	return (Result)cmdbuf[1];
 }
 
+Result FRDA_GetLocalAccountId(u8 *localAccountId) {
+	Result ret = 0;
+	u32 *cmdbuf = getThreadCommandBuffer();
+	cmdbuf[0] = IPC_MakeHeader(0xB, 2, 0);
+
+	if (R_FAILED(ret = svcSendSyncRequest(frdHandle))) return ret;
+
+	*localAccountId = (u8)cmdbuf[2];
+
+	return (Result)cmdbuf[1];
+}
+
 Result FRDA_SetLocalAccountId(u8 localAccountId) {
 	Result ret = 0;
 	u32 *cmdbuf = getThreadCommandBuffer();
