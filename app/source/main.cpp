@@ -93,11 +93,6 @@ Result switchAccounts(Account friend_account_id) {
 		return rc;
 	}
 
-	currentEnv = friend_account_id;
-	environment = AccountToNascEnvironment(currentEnv);
-	
-	buttonSelected = currentEnv;
-
 	u32 act_account_index = 0;
 	handleResult(ACTA_GetAccountIndexOfFriendAccountId(&act_account_index, friend_account_id), "Get persistent id for creation");
 
@@ -166,7 +161,7 @@ bool checkIfLumaOptionsEnabled(C3D_RenderTarget* top_screen, C3D_RenderTarget* b
 			drawLumaInfo();
 		}
 		else {
-			DrawString(0.5f, defaultColor, std::format("Enable external FIRMs and modules: {}\nEnable game patching: {}\n\nFor {} to work, both of these Luma3DS options should be enabled. To open Luma3DS settings, hold SELECT while booting your system.\n\n\
+			DrawString(0.5f, defaultColor, std::format("Enable external FIRMs and modules: {}\nEnable game patching: {}\n\nFor {} to work, both of these Luma3DS options should be ENABLED. To open Luma3DS settings, hold SELECT while booting your system.\n\n\
 If you are sure both options are enabled and the options shown don't match your Luma3DS settings, please contact @traceentertains on Discord with an image of the more information screen attached.\nPress A to exit, or hold B for more information.", externalFirmsAndModulesEnabled, gamePatchingEnabled, APP_TITLE), 0);	
 		}
 
@@ -228,6 +223,8 @@ bool drawUI(C3D_RenderTarget* top_screen, C3D_RenderTarget* bottom_screen, u32 k
 	else if (kDown & KEY_LEFT || kDown & KEY_RIGHT) {
 		buttonSelected = buttonSelected == Account::Pretendo ? Account::Nintendo : Account::Pretendo;
 	}
+	
+	environment = AccountToNascEnvironment(buttonSelected);
 	
 	if (kDown & KEY_A) {
 		buttonWasPressed = true;

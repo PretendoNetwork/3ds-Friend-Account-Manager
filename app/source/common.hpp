@@ -14,26 +14,15 @@
 
 enum class Account : u8 {
 	Undefined = 0,
-	Nintendo = 1,
-	Pretendo = 2,
-	Dev = 3
+	Nintendo = 1, // prod
+	Pretendo = 2 // test
 };
 
 enum class NascEnvironment : u8 {
-	NASC_ENV_Prod = 0,
-	NASC_ENV_Test = 1,
+	NASC_ENV_Prod = 0, // nintendo
+	NASC_ENV_Test = 1, // pretendo
 	NASC_ENV_Dev = 2,
 };
-
-#define VER_NUMBER 1.2.0
-
-#define handleFinish()                                   \
-	needsReboot = true;                                    \
-	if (R_SUCCEEDED(rc)) {                                 \
-		printf("Success!\n");                                \
-		printf("Changes will take affect after a reboot\n"); \
-		printf("Press \"Start\" to reboot\n\n");             \
-	}
 
 #define handleResult(action, name)           \
 	rc = action;                               \
