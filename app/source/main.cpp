@@ -135,7 +135,7 @@ bool checkIfLumaOptionsEnabled(C3D_RenderTarget* top_screen, C3D_RenderTarget* b
 	// if this is the first time the function has been run, get luma information
 	if (firstStateRun) {
 		firmwareVersion = GetSystemInfoField(GetSystemInfoCFW, CFWSystemInfoField::FirmwareVersion);
-		lumaVersion = UnpackLumaVersion(GetSystemInfoCFW);
+		lumaVersion = UnpackLumaVersion(firmwareVersion);
 		
 		configVersion = GetSystemInfoField(GetSystemInfoCFW, CFWSystemInfoField::ConfigVersion); // this
 		lumaConfigVersion = UnpackConfigVersion(configVersion);
