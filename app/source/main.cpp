@@ -136,15 +136,15 @@ bool checkIfLumaOptionsEnabled(C3D_RenderTarget* top_screen, C3D_RenderTarget* b
 	
 	// if this is the first time the function has been run, get luma information
 	if (firstStateRun) {
-		firmwareVersion = GetSystemInfoField(0x10000, 0);
-		lumaVersion = UnpackLumaVersion(firmwareVersion);
+		firmwareVersion = GetSystemInfoField(GetSystemInfoCFW, CFWSystemInfoFields::FirmwareVersion);
+		lumaVersion = UnpackLumaVersion(GetSystemInfoCFW);
 		
-		configVersion = GetSystemInfoField(0x10000, 2); // this
+		configVersion = GetSystemInfoField(GetSystemInfoCFW, CFWSystemInfoFields::ConfigVersion); // this
 		lumaConfigVersion = UnpackConfigVersion(configVersion);
 		
-		lumaOptions = GetSystemInfoField(0x10000, 3); // this
-		externalFirmsAndModulesEnabled = GetLumaOptionByIndex(1, lumaOptions); // this
-		gamePatchingEnabled = GetLumaOptionByIndex(2, lumaOptions); // and this might need multiple updates due to the fact that they fluctuate occasionally, if need be i can make a function that handles multiple versions though
+		lumaOptions = GetSystemInfoField(GetSystemInfoCFW, CFWSystemInfoFields::ConfigBits); // this
+		externalFirmsAndModulesEnabled = GetLumaOptionByIndex(LumaConfigBitIndexes::ExternalFirmsAndModules, lumaOptions); // this
+		gamePatchingEnabled = GetLumaOptionByIndex(LumaConfigBitIndexes::GamePatching, lumaOptions); // and this might need multiple updates due to the fact that they fluctuate occasionally, if need be i can make a function that handles multiple versions though
 	}
 	
 	// if the major version of luma3ds is under the targetLumaVersion (defined earlier in the file), send an error

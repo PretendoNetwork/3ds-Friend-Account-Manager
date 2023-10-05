@@ -21,8 +21,23 @@ enum class Account : u8 {
 enum class NascEnvironment : u8 {
 	NASC_ENV_Prod = 0, // nintendo
 	NASC_ENV_Test = 1, // pretendo
-	NASC_ENV_Dev = 2,
+	NASC_ENV_Dev = 2
 };
+
+enum class CFWSystemInfoFields {
+	FirmwareVersion = 0,
+	CommitHash = 1,
+	ConfigVersion = 2,
+	ConfigBits = 3 // only go through 0-3 because we only need 0, 2, and 3
+};
+
+enum class LumaConfigBitIndexes {
+	AutobootEmunand = 0,
+	ExternalFirmsAndModules = 1,
+	GamePatching = 2 // only go through 0-2 because we only need 1 and 2
+};
+
+const int GetSystemInfoCFW = 0x10000; // the type for Luma3DS' GetSystemInfo hook that returns CFW info
 
 #define handleResult(action, name)           \
 	rc = action;                               \
