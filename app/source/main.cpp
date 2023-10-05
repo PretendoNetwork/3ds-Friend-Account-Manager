@@ -113,7 +113,7 @@ Result createAccount(Account friend_account_id) {
 	// Switch to the friend/act accounts
 	handleResult(switchAccounts(friend_account_id), "Switch account");
 	// Reset the act account
-	handleResult(ACTA_ResetAccount(friend_account_id, true), "Reset account");
+	handleResult(ACTA_ResetAccount(static_cast<u8>(friend_account_id), true), "Reset account");
 
 	return rc;
 }

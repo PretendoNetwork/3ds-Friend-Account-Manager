@@ -12,5 +12,5 @@ Result ACTA_GetAccountCount(u32 *out);
 Result ACTA_GetFriendLocalAccountId(Account *out, u32 index);
 Result ACTA_GetPersistentId(u32 *out, u32 index);
 Result ACTA_GetAccountIndexOfFriendAccountId(u32 *index, Account friend_account_id);
-Result ACTA_ResetAccount(Account account_index, bool format_nnid);
+Result ACTA_ResetAccount(u8 account_index, bool format_nnid);
 Result ACTA_SetDefaultAccount(u8 account_index);

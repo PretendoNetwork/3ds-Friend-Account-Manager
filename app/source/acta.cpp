@@ -38,12 +38,12 @@ Result ACTA_CreateLocalAccount() {
 	return (Result)cmdbuf[1];
 }
 
-Result ACTA_ResetAccount(Account account_index, bool format_nnid) {
+Result ACTA_ResetAccount(u8 account_index, bool format_nnid) {
 	Result ret = 0;
 	u32 *cmdbuf = getThreadCommandBuffer();
 
 	cmdbuf[0] = IPC_MakeHeader(0x404, 2, 0);
-	cmdbuf[1] = static_cast<u32>(account_index);
+	cmdbuf[1] = account_index;
 	cmdbuf[2] = format_nnid;
 
 	if (R_FAILED(ret = svcSendSyncRequest(actHandle)))
