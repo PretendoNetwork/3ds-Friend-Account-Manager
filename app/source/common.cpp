@@ -85,13 +85,13 @@ void DrawVersionString() {
 	
 }
 
-bool GetLumaOptionByIndex(int index, s64 options) {
-    return ((options >> (index)) & 0x1) == 1; // if the last bit of options shifted by the right index amount of bits is 1, return true
+bool GetLumaOptionByIndex(LumaConfigBitIndex index, s64 options) {
+    return ((options >> (static_cast<s32>(index))) & 0x1) == 1; // if the last bit of options shifted by the right index amount of bits is 1, return true
 }
 
-s64 GetSystemInfoField(s32 category, s32 accessor) {
+s64 GetSystemInfoField(s32 category, CFWSystemInfoField accessor) {
 	s64 out = 0;
-	svcGetSystemInfo(&out, category, accessor);
+	svcGetSystemInfo(&out, category, static_cast<s32>(accessor));
 	
 	return out;
 }

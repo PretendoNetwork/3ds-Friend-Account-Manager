@@ -24,19 +24,20 @@ enum class NascEnvironment : u8 {
 	NASC_ENV_Dev = 2
 };
 
-enum class CFWSystemInfoFields {
+enum class CFWSystemInfoField : s32 {
 	FirmwareVersion = 0,
 	CommitHash = 1,
 	ConfigVersion = 2,
 	ConfigBits = 3 // only go through 0-3 because we only need 0, 2, and 3
 };
 
-enum class LumaConfigBitIndexes {
+enum class LumaConfigBitIndex : s32 {
 	AutobootEmunand = 0,
 	ExternalFirmsAndModules = 1,
 	GamePatching = 2 // only go through 0-2 because we only need 1 and 2
 };
 
+const int targetLumaVersion = 13;
 const int GetSystemInfoCFW = 0x10000; // the type for Luma3DS' GetSystemInfo hook that returns CFW info
 
 #define handleResult(action, name)           \
@@ -71,7 +72,7 @@ CFG_Region GetSystemRegion();
 // code thats mostly by me again
 void DrawVersionString();
 
-bool GetLumaOptionByIndex(int index, s64 options);
-s64 GetSystemInfoField(s32 category, s32 accessor);
+bool GetLumaOptionByIndex(LumaConfigBitIndex index, s64 options);
+s64 GetSystemInfoField(s32 category, CFWSystemInfoField accessor);
 std::tuple<u8, u8, u8> UnpackLumaVersion(s64 packed_version);
 std::tuple<u8, u8> UnpackConfigVersion(s64 packed_config_version);
