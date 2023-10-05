@@ -1,10 +1,4 @@
-#include "./acta.h"
-#include <3ds/ipc.h>
-#include <3ds/result.h>
-#include <3ds/srv.h>
-#include <3ds/svc.h>
-#include <3ds/synchronization.h>
-#include <3ds/types.h>
+#include "acta.hpp"
 
 static Handle actHandle;
 static int actRefCount;
@@ -44,12 +38,12 @@ Result ACTA_CreateLocalAccount() {
 	return (Result)cmdbuf[1];
 }
 
-Result ACTA_ResetAccount(u8 account_index, bool format_nnid) {
+Result ACTA_ResetAccount(Account account_index, bool format_nnid) {
 	Result ret = 0;
 	u32 *cmdbuf = getThreadCommandBuffer();
 
 	cmdbuf[0] = IPC_MakeHeader(0x404, 2, 0);
-	cmdbuf[1] = account_index;
+	cmdbuf[1] = static_cast<u32>(account_index);
 	cmdbuf[2] = format_nnid;
 
 	if (R_FAILED(ret = svcSendSyncRequest(actHandle)))
@@ -92,8 +86,8 @@ Result ACTA_GetAccountInfo(void *out, u32 out_size, u32 block_id, u8 account_ind
 	return (Result)cmdbuf[1];
 }
 
-Result ACTA_GetFriendLocalAccountId(u32 *out, u32 index) {
-	return ACTA_GetAccountInfo(out, sizeof(u32), 0x2b, index);
+Result ACTA_GetFriendLocalAccountId(Account *out, u32 index) {
+	return ACTA_GetAccountInfo(reinterpret_cast<u8*>(out), sizeof(u32), 0x2b, index);
 }
 
 Result ACTA_GetPersistentId(u32 *out, u32 index) {
@@ -125,7 +119,7 @@ Result ACTA_GetAccountCount(u32 *out) {
 		return ret;					\
 	}
 
-Result ACTA_GetAccountIndexOfFriendAccountId(u32 *index, u32 friend_account_id) {
+Result ACTA_GetAccountIndexOfFriendAccountId(u32 *index, Account friend_account_id) {
 	Result ret = 0;
 	u32 account_count = 0;
 
@@ -135,14 +129,14 @@ Result ACTA_GetAccountIndexOfFriendAccountId(u32 *index, u32 friend_account_id) 
 
 	for (u32 i = 0; i < account_count; i++) {
 		u32 account_index = i + 1;
-		u32 found_friend_account_id = 0;
+		Account found_friend_account_id = Account::Undefined;
 
 		if (R_FAILED(ret = ACTA_GetFriendLocalAccountId(&found_friend_account_id, account_index))) {
 			return ret;
 		}
 
 		if (friend_account_id == found_friend_account_id) {
-			*index = account_index;
+			*index = static_cast<u32>(account_index);
 			return 0;
 		}
 	}

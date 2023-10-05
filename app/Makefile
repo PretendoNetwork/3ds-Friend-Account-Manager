@@ -49,9 +49,11 @@ ICON      := meta/icon.png
 BNR_IMAGE := meta/banner.png
 BNR_AUDIO := meta/audio.wav
 
+VERSION_HEADER = version.hpp
+
 VERSION_MAJOR := 1
-VERSION_MINOR := 0
-VERSION_MICRO := 2
+VERSION_MINOR := 5
+VERSION_MICRO := 0
 
 #GFXBUILD	:=	$(ROMFS)/gfx
 
@@ -67,7 +69,7 @@ CFLAGS	    :=	-g -Wall $(OPTIMIZE) -mword-relocations \
 
 CFLAGS	    +=	$(INCLUDE) -D__3DS__
 
-CXXFLAGS	:=  $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
+CXXFLAGS	:=  $(CFLAGS) -fno-rtti -fno-exceptions -std=c++20
 
 ASFLAGS	    :=	-g $(ARCH)
 LDFLAGS	     =	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) $(OPTIMIZE)
@@ -221,14 +223,14 @@ else
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-all: 3dsx cia
+all: $(VERSION_HEADER) $(OUTPUT).3dsx $(OUTPUT).cia
 
-3dsx: $(OUTPUT).3dsx
+3dsx: $(VERSION_HEADER) $(OUTPUT).3dsx
 
-cia: $(OUTPUT).cia
+cia: $(VERSION_HEADER) $(OUTPUT).cia
 
 ifeq ($(strip $(NO_SMDH)),)
-.PHONY: all
+.PHONY: $(VERSION_HEADER) all
 all:            $(OUTPUT).3dsx $(OUTPUT).smdh
 $(OUTPUT).smdh: $(TOPDIR)/Makefile $(TOPDIR)/Makefile
 $(OUTPUT).3dsx: $(OUTPUT).smdh
@@ -238,7 +240,20 @@ $(OUTPUT).3dsx: $(OUTPUT).elf $(_3DSXDEPS)
 
 $(OFILES_SOURCES): $(HFILES)
 
-$(OUTPUT).elf:  $(OFILES)
+$(OUTPUT).elf: $(OFILES)
+
+$(VERSION_HEADER):
+	@echo generating version header...
+	@mkdir -p $(BUILD)  # Create the build directory if it doesn't exist
+	@echo "// Compile time constants" > $@.new
+	@echo "" >> $@.new
+	@echo "#define APP_TITLE \"$(APP_TITLE)\"" >> $@.new
+	@echo "" >> $@.new
+	@echo "#define VERSION_MAJOR $(VERSION_MAJOR)" >> $@.new
+	@echo "#define VERSION_MINOR $(VERSION_MINOR)" >> $@.new
+	@echo "#define VERSION_MICRO $(VERSION_MICRO)" >> $@.new
+	@if ! cmp -s $@ $@.new; then mv $@.new $@; else rm $@.new; fi
+	
 #---------------------------------------------------------------------------------
 # you need a rule like this for each extension you use as binary data
 #---------------------------------------------------------------------------------

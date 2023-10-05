@@ -11,14 +11,13 @@
 	mount_hook:
         stmfd      sp!, {lr}
         bl         mount_content_cfa
-        ldr        r0, [pc, #0x18]
+        ldr        r0, =sdmc_string
         ldmfd      sp!, {lr}
         b          mount_sd
     unmount_hook:
         stmfd      sp!, {lr}
         bl         unmount_romfs
-        ldr        r0, [pc, #0x4]
+        ldr        r0, =sdmc_string
         ldmfd      sp!, {lr}
         b          unmount_archive
 		.pool
-		.byte magic_bytes_two
