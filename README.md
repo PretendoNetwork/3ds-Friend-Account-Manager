@@ -29,4 +29,5 @@ Thanks to:
 - [shutterbug2000](https://github.com/shutterbug2000) for the GUI
 - [libctru](https://github.com/devkitPro/libctru) for the `frda.c` base, homebrew template, and other library functions (and thanks to citro2d for part of a system font function)
 - [Universal-Core](https://github.com/Universal-Team/Universal-Core) for the string drawing functions
+- [Fangal-Airbag](https://github.com/Fangal-Airbag) for making the account switcher GUI support button controls
 - All other 3DS researchers
