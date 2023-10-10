@@ -7,13 +7,7 @@ and modified to:
 - Only allow frd:a to be used
 */
 
-#include "./frda.h"
-#include <3ds/ipc.h>
-#include <3ds/result.h>
-#include <3ds/srv.h>
-#include <3ds/svc.h>
-#include <3ds/synchronization.h>
-#include <3ds/types.h>
+#include "frda.hpp"
 
 static Handle frdHandle;
 static int frdRefCount;
@@ -41,13 +35,13 @@ Handle *frdAGetSessionHandle(void) {
 	return &frdHandle;
 }
 
-Result FRDA_CreateLocalAccount(u8 localAccountId, NascEnvironment nascEnvironment, u8 serverTypeField1, u8 serverTypeField2) {
+Result FRDA_CreateLocalAccount(Account localAccountId, NascEnvironment nascEnvironment, u8 serverTypeField1, u8 serverTypeField2) {
 	Result ret = 0;
 	u32 *cmdbuf = getThreadCommandBuffer();
 
 	cmdbuf[0] = IPC_MakeHeader(0x401, 4, 0);
-	cmdbuf[1] = localAccountId;
-	cmdbuf[2] = nascEnvironment;
+	cmdbuf[1] = static_cast<u32>(localAccountId);
+	cmdbuf[2] = static_cast<u32>(nascEnvironment);
 	cmdbuf[3] = serverTypeField1;
 	cmdbuf[4] = serverTypeField2;
 
@@ -57,24 +51,24 @@ Result FRDA_CreateLocalAccount(u8 localAccountId, NascEnvironment nascEnvironmen
 	return (Result)cmdbuf[1];
 }
 
-Result FRDA_GetLocalAccountId(u8 *localAccountId) {
+Result FRDA_GetLocalAccountId(Account *localAccountId) {
 	Result ret = 0;
 	u32 *cmdbuf = getThreadCommandBuffer();
 	cmdbuf[0] = IPC_MakeHeader(0xB, 2, 0);
 
 	if (R_FAILED(ret = svcSendSyncRequest(frdHandle))) return ret;
 
-	*localAccountId = (u8)cmdbuf[2];
+	*localAccountId = static_cast<Account>(cmdbuf[2]);
 
 	return (Result)cmdbuf[1];
 }
 
-Result FRDA_SetLocalAccountId(u8 localAccountId) {
+Result FRDA_SetLocalAccountId(Account localAccountId) {
 	Result ret = 0;
 	u32 *cmdbuf = getThreadCommandBuffer();
 
 	cmdbuf[0] = IPC_MakeHeader(0x403, 1, 0);
-	cmdbuf[1] = localAccountId;
+	cmdbuf[1] = static_cast<u32>(localAccountId);
 
 	if (R_FAILED(ret = svcSendSyncRequest(frdHandle)))
 		return ret;

@@ -1,5 +1,5 @@
 // patch type to 1 (sdmc) instead of 5 (content:)
-.org load_cave_pem
+.org load_cave_pem + 0x14
 	mov r2, #0x1
 	
 // set certificate location
@@ -17,26 +17,25 @@
 // adds root certificate
 .org add_default_cert_cave
 	add_root_cert:
-		ldr     r0, [pc, #0x3C]             // httpC:AddRootCA
+		ldr     r0, =0x00240082             // httpC:AddRootCA
 		mrc     p15, 0x0, r4, c13, c0, 0x3  // TLS
 		ldr     r1, [r5, #0xC]              // load HTTPC handle
 		ldr     r8, [r5, #0x14]             // load httpC handle
 		str     r0, [r4, #0x80]!            // store cmdhdr in cmdbuf[0]
-		str     r1, [r4, #0x4]              // store HTTPC handle in cmdbuf[1]
+		str     r1, [r4, #4]                // store HTTPC handle in cmdbuf[1]
 		mov     r0, r8                      // move httpC handle to r0 for SVC SendSyncRequest
-		ldr     r8, [data_one]
-		ldr     r1, [data_two]
-		str     r8, [r4, #0x8]              // store cert size in cmdbuf[2]
-		str     r1, [r4, #0x10]             // store cert bufptr in cmdbuf[4]
-		mov     r8, r8, lsl #0x4            // size <<= 4
+		ldr     r8, =der_cert_end-der_cert_start
+		ldr     r1, =der_cert_start
+		str     r8, [r4, #8]                // store cert size in cmdbuf[2]
+		str     r1, [r4, #16]               // store cert bufptr in cmdbuf[4]
+		mov     r8, r8, lsl #4              // size <<= 4
 		orr     r8, r8, #0xA                // size |= 0xA
-		str     r8, [r4, #0xC]              // store translate header in cmdbuf[3]
-		swi     #0x32                       // finally do the request
-		mov     r0, r0                      // do whatever
+		str     r8, [r4, #12]               // store translate header in cmdbuf[3]
+		swi     0x32                        // finally do the request
+		nop                                 // do whatever
 		b       add_default_cert_cave_end   // jump past the pool
-		.byte magic_bytes                   // magical bytes (idk what they do), also, most comments are from an older source code version
 		.pool
-		mov     r0, r0
-		mov     r0, r0
-		mov     r0, r0
-		// so much mov r0, r0
+		nop
+		nop
+		nop
+		// so much nop

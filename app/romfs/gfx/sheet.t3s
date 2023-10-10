@@ -1,14 +1,12 @@
 --atlas -f rgba8888 -z auto
-debug_button.png
-debug_header.png
 go_back.png
 header.png
-nintendo_deselected.png
-nintendo_btn_selected.png
-nintendo_selected.png
 nintendo_loaded_deselected.png
-pretendo_deselected.png
-pretendo_btn_selected.png
-pretendo_selected.png
+nintendo_loaded_selected.png
+nintendo_unloaded_deselected.png
+nintendo_unloaded_selected.png
 pretendo_loaded_deselected.png
+pretendo_loaded_selected.png
+pretendo_unloaded_deselected.png
+pretendo_unloaded_selected.png
 top.png

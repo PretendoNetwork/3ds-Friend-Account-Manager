@@ -23,9 +23,11 @@
 Thanks to:
 
 - [pinklimes](https://github.com/gitlimes) for the CIA version banner
-- [TraceEntertains](https://github.com/TraceEntertains) for making a CIA version of Nimbus and a few other things
+- [TraceEntertains](https://github.com/TraceEntertains) for making a CIA version of Nimbus and maintaining the project
 - [SciresM](https://github.com/SciresM) for making the 3DS SSL patches
 - [zaksabeast](https://github.com/zaksabeast) for the original 3ds-Friend-Account-Manager and all the research into the friends and act system titles
 - [shutterbug2000](https://github.com/shutterbug2000) for the GUI
-- [libctru](https://github.com/devkitPro/libctru) for the `frda.c` base, homebrew template, and all of the library functions
+- [libctru](https://github.com/devkitPro/libctru) for the `frda.c` base, homebrew template, and other library functions (and thanks to citro2d for part of a system font function)
+- [Universal-Core](https://github.com/Universal-Team/Universal-Core) for the string drawing functions
+- [Fangal-Airbag](https://github.com/Fangal-Airbag) for making the account switcher GUI support button controls
 - All other 3DS researchers
