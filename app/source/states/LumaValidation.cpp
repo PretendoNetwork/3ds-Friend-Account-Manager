@@ -10,6 +10,15 @@ bool LumaValidation::checkIfLumaOptionsEnabled(MainStruct *mainStruct, C3D_Rende
     
     C2D_SceneBegin(bottom_screen);
 
+    // if running on citra, skip all luma checks
+    s64 isCitra = 0;
+    svcGetSystemInfo(&isCitra, 0x20000, 0);
+    if (isCitra) {
+        mainStruct->state = 1;
+		return false;
+    }
+
+
     // if this is the first time the function has been run, get luma information
     if (mainStruct->firstRunOfState) {
         mainStruct->firmwareVersion = GetSystemInfoField(GetSystemInfoCFW, CFWSystemInfoField::FirmwareVersion);

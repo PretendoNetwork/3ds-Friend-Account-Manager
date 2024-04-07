@@ -34,19 +34,19 @@ const int GetSystemInfoCFW = 0x10000; // the type for Luma3DS' GetSystemInfo hoo
 const u32 defaultColor = C2D_Color32(255, 255, 255, 0xFF);
 
 struct MainStruct {
-	C2D_Sprite *debug_button;
-	C2D_Sprite *debug_header;
-	C2D_Sprite *go_back;
-	C2D_Sprite *header;
-	C2D_Sprite *nintendo_unloaded_deselected;
-	C2D_Sprite *nintendo_unloaded_selected;
-	C2D_Sprite *nintendo_loaded_selected;
-	C2D_Sprite *nintendo_loaded_deselected;
-	C2D_Sprite *pretendo_unloaded_deselected;
-	C2D_Sprite *pretendo_unloaded_selected;
-	C2D_Sprite *pretendo_loaded_selected;
-	C2D_Sprite *pretendo_loaded_deselected;
-	C2D_Sprite *top;
+	C2D_Sprite debug_button;
+	C2D_Sprite debug_header;
+	C2D_Sprite go_back;
+	C2D_Sprite header;
+	C2D_Sprite nintendo_unloaded_deselected;
+	C2D_Sprite nintendo_unloaded_selected;
+	C2D_Sprite nintendo_loaded_selected;
+	C2D_Sprite nintendo_loaded_deselected;
+	C2D_Sprite pretendo_unloaded_deselected;
+	C2D_Sprite pretendo_unloaded_selected;
+	C2D_Sprite pretendo_loaded_selected;
+	C2D_Sprite pretendo_loaded_deselected;
+	C2D_Sprite top;
 
 	u32 screen = 0;
 	u32 state = 0;

@@ -44,31 +44,31 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen, C3D_Re
     
     C2D_SceneBegin(top_screen);
     DrawVersionString();
-    C2D_DrawSprite(mainStruct->top);
+    C2D_DrawSprite(&mainStruct->top);
     
     C2D_SceneBegin(bottom_screen);
     
     if (mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Prod) {
         if (mainStruct->currentAccount == NascEnvironment::NASC_ENV_Prod) {
-            C2D_DrawSprite(mainStruct->nintendo_loaded_selected);
-            C2D_DrawSprite(mainStruct->pretendo_unloaded_deselected);
+            C2D_DrawSprite(&mainStruct->nintendo_loaded_selected);
+            C2D_DrawSprite(&mainStruct->pretendo_unloaded_deselected);
         }
         else {
-            C2D_DrawSprite(mainStruct->nintendo_unloaded_selected);
-            C2D_DrawSprite(mainStruct->pretendo_loaded_deselected);
+            C2D_DrawSprite(&mainStruct->nintendo_unloaded_selected);
+            C2D_DrawSprite(&mainStruct->pretendo_loaded_deselected);
         }
     }
     else if (mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Test) {
         if (mainStruct->currentAccount == NascEnvironment::NASC_ENV_Test) {
-            C2D_DrawSprite(mainStruct->nintendo_unloaded_deselected);
-            C2D_DrawSprite(mainStruct->pretendo_loaded_selected);
+            C2D_DrawSprite(&mainStruct->nintendo_unloaded_deselected);
+            C2D_DrawSprite(&mainStruct->pretendo_loaded_selected);
         }
         else {
-            C2D_DrawSprite(mainStruct->nintendo_loaded_deselected);
-            C2D_DrawSprite(mainStruct->pretendo_unloaded_selected);
+            C2D_DrawSprite(&mainStruct->nintendo_loaded_deselected);
+            C2D_DrawSprite(&mainStruct->pretendo_unloaded_selected);
         }
     }
-    C2D_DrawSprite(mainStruct->header);
+    C2D_DrawSprite(&mainStruct->header);
 
     // handle touch input
     if (kDown & KEY_TOUCH) {
