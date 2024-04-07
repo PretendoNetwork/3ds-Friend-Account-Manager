@@ -66,7 +66,7 @@ int main()
 
 	// set button selected and current account to nasc environment
 	u32 serverTypes[3] = {};
-	FRDU_GetServerTypes(serverTypes);
+	FRDA_GetServerTypes(serverTypes);
 	
 	mainStruct.buttonSelected = static_cast<NascEnvironment>(serverTypes[0]);
 	mainStruct.currentAccount = mainStruct.buttonSelected;

@@ -91,7 +91,7 @@ Result FRDA_SetClientSdkVersion(u32 sdkVer) {
 	return (Result)cmdbuf[1];
 }
 
-Result FRDU_GetServerTypes(u32 *out) {
+Result FRDA_GetServerTypes(u32 *out) {
 	Result ret = 0;
 
 	u32 *cmdbuf = getThreadCommandBuffer();
