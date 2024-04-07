@@ -1,9 +1,6 @@
 #include "common.hpp"
 #include <3ds/services/cfgu.h>
-
-NascEnvironment AccountToNascEnvironment(Account accountId) {
-	return static_cast<NascEnvironment>(static_cast<u8>(accountId) - 1);
-}
+#include <format>
 
 // credit to the universal-team for most/all of the code past here
 C2D_Font font;
@@ -104,3 +101,9 @@ std::tuple<u8, u8> UnpackConfigVersion(s64 packed_config_version) {
 	return { (packed_config_version >> 16) & 0xFF, packed_config_version & 0xFF };
 }
 
+void drawLumaInfo(MainStruct *mainStruct) {
+	DrawString(0.5f, defaultColor, std::format("Luma version is {}.{}.{}\nLuma config version is {}.{}\n\nLuma3DS config bits are:\n{:016b}\n{:016b}\n{:016b}\n{:016b}",
+	std::get<0>(mainStruct->lumaVersion), std::get<1>(mainStruct->lumaVersion), std::get<2>(mainStruct->lumaVersion),
+	std::get<0>(mainStruct->lumaConfigVersion), std::get<1>(mainStruct->lumaConfigVersion), mainStruct->lumaOptions >> 48,
+	(mainStruct->lumaOptions >> 32) & 0xFFFF, (mainStruct->lumaOptions >> 16) & 0xFFFF, mainStruct->lumaOptions & 0xFFFF), 0);
+}

@@ -86,8 +86,8 @@ Result ACTA_GetAccountInfo(void *out, u32 out_size, u32 block_id, u8 account_ind
 	return (Result)cmdbuf[1];
 }
 
-Result ACTA_GetFriendLocalAccountId(Account *out, u32 index) {
-	return ACTA_GetAccountInfo(reinterpret_cast<u8*>(out), sizeof(u32), 0x2b, index);
+Result ACTA_GetFriendLocalAccountId(u8 *out, u32 index) {
+	return ACTA_GetAccountInfo(out, sizeof(u32), 0x2b, index);
 }
 
 Result ACTA_GetPersistentId(u32 *out, u32 index) {
@@ -119,7 +119,7 @@ Result ACTA_GetAccountCount(u32 *out) {
 		return ret;					\
 	}
 
-Result ACTA_GetAccountIndexOfFriendAccountId(u32 *index, Account friend_account_id) {
+Result ACTA_GetAccountIndexOfFriendAccountId(u32 *index, u8 friend_account_id) {
 	Result ret = 0;
 	u32 account_count = 0;
 
@@ -127,16 +127,15 @@ Result ACTA_GetAccountIndexOfFriendAccountId(u32 *index, Account friend_account_
 		return ret;
 	}
 
-	for (u32 i = 0; i < account_count; i++) {
-		u32 account_index = i + 1;
-		Account found_friend_account_id = Account::Undefined;
+	for (u32 account_index = 1; account_index < account_count; account_index++) {
+		u8 found_friend_account_id = 0;
 
 		if (R_FAILED(ret = ACTA_GetFriendLocalAccountId(&found_friend_account_id, account_index))) {
 			return ret;
 		}
 
 		if (friend_account_id == found_friend_account_id) {
-			*index = static_cast<u32>(account_index);
+			*index = account_index;
 			return 0;
 		}
 	}
