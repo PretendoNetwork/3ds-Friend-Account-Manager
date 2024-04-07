@@ -15,6 +15,8 @@ This is a tutorial on how to get, extract, and decompress code.bin files for pat
 ### Modules to dump
 - Account (act): 0004013000003802
 - Friends (friends): 0004013000003202
+- HTTP (http): 0004013000002902
+- Socket (socket): 0004013000002E02
 - SSL (ssl): 0004013000002F02
 - Miiverse (miiverse):
     - JPN: 000400300000BC02
