@@ -73,7 +73,7 @@ int main()
 
 	// Main loop
 	while (aptMainLoop()) {
-		u32 exit = 0;
+		bool exit = false;
 		
 		// get any input, and if applicable the location where the screen was touched
 		hidScanInput();
@@ -102,7 +102,7 @@ int main()
 		
 		C3D_FrameEnd(0);
 		
-		if (exit < 0) break;
+		if (exit) break;
 	}
 
 	// Deinitialize the libs
