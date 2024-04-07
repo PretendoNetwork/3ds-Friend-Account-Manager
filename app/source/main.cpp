@@ -76,7 +76,6 @@ int main()
     svcGetSystemInfo(&isCitra, 0x20000, 0);
     if (isCitra) {
         mainStruct.state = 1;
-        return false;
     }
 
 	// Main loop
