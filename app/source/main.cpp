@@ -291,12 +291,7 @@ int main()
 		if (lastState != state) firstStateRun = true;
 		
 		if (state == 0) {
-			// Don't check for Luma options if running under Citra
-			s64 output = 0;
-			svcGetSystemInfo(&output, 0x20000, 0);
-			if (!output) {
-				exit = checkIfLumaOptionsEnabled(top_screen, bottom_screen, kDown, kHeld, touch);
-			}
+			exit = checkIfLumaOptionsEnabled(top_screen, bottom_screen, kDown, kHeld, touch);
 		}
 		else {
 			exit = drawUI(top_screen, bottom_screen, kDown, kHeld, touch);
