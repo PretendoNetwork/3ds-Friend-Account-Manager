@@ -4,19 +4,11 @@
     #define M_PI 3.14159265358979323846
 #endif
 
-#include <stdint.h>
+#include "../build/version.hpp"
 #include <citro2d.h>
 #include <3ds.h>
 #include <algorithm>
 #include <string>
-#include <format>
-#include "../build/version.hpp"
-
-enum class Account : u8 {
-	Undefined = 0,
-	Nintendo = 1, // prod
-	Pretendo = 2 // test
-};
 
 enum class NascEnvironment : u8 {
 	NASC_ENV_Prod = 0, // nintendo
@@ -39,14 +31,52 @@ enum class LumaConfigBitIndex : s32 {
 
 const int targetLumaVersion = 13;
 const int GetSystemInfoCFW = 0x10000; // the type for Luma3DS' GetSystemInfo hook that returns CFW info
+const u32 defaultColor = C2D_Color32(255, 255, 255, 0xFF);
+
+struct MainStruct {
+	C2D_Sprite *debug_button;
+	C2D_Sprite *debug_header;
+	C2D_Sprite *go_back;
+	C2D_Sprite *header;
+	C2D_Sprite *nintendo_unloaded_deselected;
+	C2D_Sprite *nintendo_unloaded_selected;
+	C2D_Sprite *nintendo_loaded_selected;
+	C2D_Sprite *nintendo_loaded_deselected;
+	C2D_Sprite *pretendo_unloaded_deselected;
+	C2D_Sprite *pretendo_unloaded_selected;
+	C2D_Sprite *pretendo_loaded_selected;
+	C2D_Sprite *pretendo_loaded_deselected;
+	C2D_Sprite *top;
+
+	u32 screen = 0;
+	u32 state = 0;
+	u32 lastState = 0;
+
+	NascEnvironment currentAccount = NascEnvironment::NASC_ENV_Prod;
+	NascEnvironment buttonSelected = NascEnvironment::NASC_ENV_Prod;
+
+	bool firstRunOfState = true;
+
+	bool buttonWasPressed = false;
+	bool needsReboot = false;
+
+	// startup checking variables
+	s64 firmwareVersion;
+	std::tuple<u8, u8, u8> lumaVersion;
+
+	s64 configVersion;
+	std::tuple<u8, u8> lumaConfigVersion;
+
+	s64 lumaOptions;
+	bool gamePatchingEnabled;
+	bool externalFirmsAndModulesEnabled;
+};
 
 #define handleResult(action, name)           \
 	rc = action;                               \
 	if (R_FAILED(rc)) {                        \
 		printf("%s error: %08lx\n\n", name, rc); \
 	}
-
-extern NascEnvironment AccountToNascEnvironment(Account accountId);
 
 // credit to the universal-team for most/all of the code past here
 extern C2D_Font font;
@@ -76,3 +106,5 @@ bool GetLumaOptionByIndex(LumaConfigBitIndex index, s64 options);
 s64 GetSystemInfoField(s32 category, CFWSystemInfoField accessor);
 std::tuple<u8, u8, u8> UnpackLumaVersion(s64 packed_version);
 std::tuple<u8, u8> UnpackConfigVersion(s64 packed_config_version);
+
+void drawLumaInfo(MainStruct *mainStruct);
