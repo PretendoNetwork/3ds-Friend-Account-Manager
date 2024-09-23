@@ -1,6 +1,7 @@
-# Miiverse patches for Juxtaposition
-Basically just Juxt patches that have a bit nicer looking code and building closer to how the rest of the Nimbus patches are.
+# Miiverse patches
+Based on the original patches by [Stary](https://github.com/Stary2001) and [Sono](https://github.com/SonoSooS),
+but cleaned up a bit with a Makefile closer to the rest of the Nimbus patches.
 
-To compile, you need armips, make, and flips.
+Any region decompressed Miiverse code.bin should work for building.
 
-Any decompressed Miiverse code.bin works fine.
+To compile, you need armips, make, flips, and the aforementioned Miiverse `code.bin`.
